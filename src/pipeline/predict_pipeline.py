@@ -28,38 +28,64 @@ class PredictPipeline:
 
 class CustomData:
     def __init__(  self,
-        gender: str,
-        race_ethnicity: str,
-        parental_level_of_education,
-        lunch: str,
-        test_preparation_course: str,
-        reading_score: int,
-        writing_score: int):
+        age: int,
+        sex: int,
+        cp: int,
+        trestbps:int,
+        chol: int,
+        fbs: int,
+        restecg: int,
+        thalach: int,
+        exang: int,
+        oldpeak: int,
+        slope: float,
+        ca: int,
+        thal: int
+                ):
 
-        self.gender = gender
+        self.age = age
 
-        self.race_ethnicity = race_ethnicity
+        self.sex = sex
 
-        self.parental_level_of_education = parental_level_of_education
+        self.cp = cp
 
-        self.lunch = lunch
+        self.trestbps = trestbps
 
-        self.test_preparation_course = test_preparation_course
+        self.chol = chol
 
-        self.reading_score = reading_score
+        self.fbs = fbs
 
-        self.writing_score = writing_score
+        self.restecg = restecg
+        
+        self.thalach = thalach
+
+        self.exang = exang
+
+        self.oldpeak = oldpeak
+
+        self.slope = slope
+
+        self.ca = ca
+
+        self.thal = thal
 
     def get_data_as_data_frame(self):
         try:
             custom_data_input_dict = {
-                "gender": [self.gender],
-                "race_ethnicity": [self.race_ethnicity],
-                "parental_level_of_education": [self.parental_level_of_education],
-                "lunch": [self.lunch],
-                "test_preparation_course": [self.test_preparation_course],
-                "reading_score": [self.reading_score],
-                "writing_score": [self.writing_score],
+                "age": [self.age],
+                "sex": [self.sex],
+                "cp": [self.cp],
+                "trestbps": [self.trestbps],
+                "chol": [self.chol],
+                "fbs": [self.fbs],
+                "restecg": [self.restecg],
+                "thalach": [self.thalach],
+                "exang": [self.exang],
+                "oldpeak": [self.oldpeak],
+                "slope": [self.slope],
+                "ca": [self.ca],
+                "thal": [self.thal],
+    
             }
 
             return pd.DataFrame(custom_data_input_dict)

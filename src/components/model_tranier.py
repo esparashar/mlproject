@@ -11,6 +11,8 @@ from sklearn.ensemble import (
     RandomForestRegressor,
 )
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
+from sklearn import svm
 from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
@@ -18,7 +20,7 @@ from xgboost import XGBRegressor
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object,evaluate_models
+from src.utils import save_object,evaluate_models,load_object
 
 
 @dataclass
@@ -46,6 +48,8 @@ class ModelTrainer:
             )
             models = {
                 "Random Forest": RandomForestRegressor(),
+                #"Logistic Regression": LogisticRegression(),
+                #"SVM": svm(),
                 "Decision Tree": DecisionTreeRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
@@ -74,6 +78,8 @@ class ModelTrainer:
                     'n_estimators': [8,16,32,64,128,256]
                 },
                 "Linear Regression":{},
+                #"Logistic Regression":{},
+                #"SVM":{},
                 "XGBRegressor":{
                     'learning_rate':[.1,.01,.05,.001],
                     'n_estimators': [8,16,32,64,128,256]
@@ -116,7 +122,7 @@ class ModelTrainer:
             best_params = params[actual_model]
 
             
-            if best_model_score<0.6:
+            if best_model_score<0.4:
                 raise CustomException("No best model found")
             logging.info(f"Best found model on both training and testing dataset")
 

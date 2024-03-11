@@ -3,7 +3,9 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
+import numpy as np
 from src.utils import read_sql_data
+import pymysql
 
 from sklearn.model_selection import train_test_split
 
@@ -23,7 +25,26 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         try:
             ##reading the data from mysql
-            df=pd.read_csv(os.path.join('notebook','raw.csv'))
+            ##df=pd.read_csv(os.path.join('notebook','raw.csv'))
+            ##df= read_sql_data() 
+
+            connection=pymysql.connect(
+                            host='localhost',
+                            user='root',
+                            password='Paresh@5',
+                            database='cvd'
+                            )
+            cursor = connection.cursor()
+            cursor.execute("select * from raw ")
+            #data=cursor.fetchall()
+            #df= pd.DataFrame(data)
+            rows = cursor.fetchall()
+
+            column_names = [desc[0] for desc in cursor.description]
+
+            df = pd.DataFrame(rows, columns=column_names)
+            
+
             logging.info("Reading completed mysql database")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
